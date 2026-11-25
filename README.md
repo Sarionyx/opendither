@@ -31,7 +31,7 @@ spec, so a look you design in one works identically in the others.
 | ⌨️ | **CLI** — batch-process folders | [`python/`](python) |
 | 📚 | **Libraries** — Python (`numpy`) and JavaScript (zero dependencies) | [`python/`](python), [`js/`](js) |
 
-### Desktop app and CLI (Python 3.9+)
+### Desktop app and CLI (Python 3.10+)
 
 ```bash
 cd python
