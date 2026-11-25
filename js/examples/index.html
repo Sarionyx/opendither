@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OpenDither — website add-on demo</title>
+  <style>
+    body { margin: 0; font: 15px/1.6 system-ui, sans-serif; background: #f2ecd9; color: #1b1b1b; }
+    main { max-width: 980px; margin: 0 auto; padding: 40px 20px 80px; }
+    h1 { font-size: 34px; margin: 0 0 4px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; margin: 24px 0 40px; }
+    figure { margin: 0; }
+    figcaption { font: 12px/1.4 ui-monospace, Consolas, monospace; margin-top: 6px; color: #555; }
+    open-dither, img { width: 100%; border-radius: 4px; }
+    pre { background: #1b1b1b; color: #f2ecd9; padding: 14px 16px; border-radius: 6px; overflow: auto; font-size: 13px; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>OpenDither on the web</h1>
+  <p>Two ways to use it: the <code>&lt;open-dither&gt;</code> element, or <code>OpenDither.auto()</code> on regular images. Hover the first image to reveal the original.</p>
+
+  <div class="grid">
+    <figure>
+      <open-dither src="sample.png" algorithm="atkinson" palette="newsprint" scale="2" reveal="hover" alt="Sunset, Atkinson dithered"></open-dither>
+      <figcaption>algorithm="atkinson" palette="newsprint" scale="2" reveal="hover"</figcaption>
+    </figure>
+    <figure>
+      <open-dither src="sample.png" algorithm="bayer-8" color-mode="rgb" palette="vapor" scale="3" alt="Sunset, Bayer"></open-dither>
+      <figcaption>algorithm="bayer-8" color-mode="rgb" palette="vapor" scale="3"</figcaption>
+    </figure>
+    <figure>
+      <open-dither src="sample.png" algorithm="halftone-8" palette="#0b3d91,#e6f0ff" contrast="20" alt="Sunset, halftone"></open-dither>
+      <figcaption>algorithm="halftone-8" palette="#0b3d91,#e6f0ff" contrast="20"</figcaption>
+    </figure>
+    <figure>
+      <img src="sample.png" alt="Sunset, auto-dithered" data-dither="floyd-steinberg" data-palette="pocket-green" data-color-mode="rgb" data-scale="2">
+      <figcaption>&lt;img data-dither="floyd-steinberg" data-palette="pocket-green" …&gt;</figcaption>
+    </figure>
+  </div>
+
+  <h2>Usage</h2>
+<pre>&lt;script src="opendither.js"&gt;&lt;/script&gt;
+&lt;script src="opendither-element.js"&gt;&lt;/script&gt;
+
+&lt;open-dither src="photo.jpg" algorithm="atkinson" palette="#000,#fff" scale="2"&gt;&lt;/open-dither&gt;
+
+&lt;img src="photo.jpg" data-dither="bayer-4" data-palette="sepia"&gt;
+&lt;script&gt;OpenDither.auto()&lt;/script&gt;</pre>
+  <p>Open this page through a local web server (for example <code>python -m http.server</code> in the repo root). Browsers block reading pixels from <code>file://</code> pages and from cross-origin images without CORS headers.</p>
+</main>
+<script src="../src/opendither.js"></script>
+<script src="../src/opendither-element.js"></script>
+<script>OpenDither.auto();</script>
+</body>
+</html>

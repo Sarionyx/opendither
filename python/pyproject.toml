@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "opendither"
+version = "1.0.0"
+description = "Open-source image dithering: 21 algorithms, palettes, pixel scaling. Library, CLI and desktop app."
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.9"
+dependencies = ["numpy>=1.22", "Pillow>=9"]
+keywords = ["dither", "dithering", "floyd-steinberg", "atkinson", "bayer", "halftone", "pixel-art"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Topic :: Multimedia :: Graphics",
+  "Environment :: X11 Applications :: Qt",
+]
+
+[project.optional-dependencies]
+fast = ["numba>=0.58"]
+gui = ["PySide6>=6.5", "numba>=0.58"]
+dev = ["pytest", "PySide6>=6.5", "numba>=0.58"]
+
+[project.scripts]
+opendither = "opendither.cli:main"
+
+[project.gui-scripts]
+opendither-gui = "opendither.gui:main"
+
+[tool.setuptools.packages.find]
+include = ["opendither*"]

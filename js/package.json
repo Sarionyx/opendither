@@ -1,0 +1,14 @@
+{
+  "name": "opendither",
+  "version": "1.0.0",
+  "description": "Open-source image dithering: 20+ algorithms, palettes, zero dependencies. Library + <open-dither> web component.",
+  "main": "src/opendither.js",
+  "browser": "src/opendither.js",
+  "files": ["src"],
+  "scripts": {
+    "test": "node test/vectors.cjs && node test/sanity.cjs",
+    "vectors": "node test/vectors.cjs --write"
+  },
+  "keywords": ["dither", "dithering", "floyd-steinberg", "atkinson", "bayer", "halftone", "pixel-art", "image", "web-component"],
+  "license": "MIT"
+}

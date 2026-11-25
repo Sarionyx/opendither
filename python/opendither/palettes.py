@@ -1,0 +1,27 @@
+"""Built-in palettes. Must stay identical to spec/palettes.json (checked by the tests)."""
+
+PALETTES = [
+    {"id": "1-bit", "name": "1-bit", "colors": ["#000000", "#ffffff"]},
+    {"id": "gray-4", "name": "Gray 4", "colors": ["#000000", "#555555", "#aaaaaa", "#ffffff"]},
+    {"id": "gray-8", "name": "Gray 8", "colors": ["#000000", "#242424", "#494949", "#6d6d6d", "#929292", "#b6b6b6", "#dbdbdb", "#ffffff"]},
+    {"id": "pocket-green", "name": "Pocket Green", "colors": ["#0f380f", "#306230", "#8bac0f", "#9bbc0f"]},
+    {"id": "amber", "name": "Amber Terminal", "colors": ["#1a0f00", "#ffb000"]},
+    {"id": "phosphor", "name": "Green Phosphor", "colors": ["#001a00", "#33ff33"]},
+    {"id": "newsprint", "name": "Newsprint", "colors": ["#1b1b1b", "#f2ecd9"]},
+    {"id": "blueprint", "name": "Blueprint", "colors": ["#0b3d91", "#e6f0ff"]},
+    {"id": "riso", "name": "Riso Pink", "colors": ["#1d1d1b", "#ff48b0", "#f6f1e7"]},
+    {"id": "cyanotype", "name": "Cyanotype", "colors": ["#0d1f3c", "#1f4e8c", "#5b8fc7", "#dfeaf5"]},
+    {"id": "sepia", "name": "Sepia", "colors": ["#2b1d0e", "#7a5230", "#c49a6c", "#f3e3c3"]},
+    {"id": "sunset", "name": "Sunset", "colors": ["#2b0f3a", "#a4245f", "#f2643a", "#fdd56b"]},
+    {"id": "vapor", "name": "Vapor", "colors": ["#1a1033", "#ff71ce", "#01cdfe", "#05ffa1", "#fffb96"]},
+    {"id": "cga", "name": "CGA Mode 1", "colors": ["#000000", "#55ffff", "#ff55ff", "#ffffff"]},
+    {"id": "rgb-8", "name": "RGB 8", "colors": ["#000000", "#ff0000", "#00ff00", "#0000ff", "#00ffff", "#ff00ff", "#ffff00", "#ffffff"]},
+    {"id": "ega-16", "name": "EGA 16", "colors": ["#000000", "#0000aa", "#00aa00", "#00aaaa", "#aa0000", "#aa00aa", "#aa5500", "#aaaaaa", "#555555", "#5555ff", "#55ff55", "#55ffff", "#ff5555", "#ff55ff", "#ffff55", "#ffffff"]},
+]
+
+
+def find_palette(pid):
+    for p in PALETTES:
+        if p["id"] == pid:
+            return p
+    return None

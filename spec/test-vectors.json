@@ -1,0 +1,243 @@
+{
+  "description": "Reference outputs. Image: 64x48 RGBA, r=floor(x*255/63), g=floor(y*255/47), b=(x*x+3*x*y)%256, a=255-((x*y)%64). Hash = sha256 of output RGBA bytes.",
+  "width": 64,
+  "height": 48,
+  "cases": [
+    {
+      "settings": {
+        "algorithm": "threshold"
+      },
+      "sha256": "f7b28fd9d3e70cc7a1365776287b81da976ddb4076956e188eec3038be2698d8"
+    },
+    {
+      "settings": {
+        "algorithm": "floyd-steinberg"
+      },
+      "sha256": "3f9e7aed793bc9ec051489fe597ffa4df3190cd3efa3f7037f15f20434970856"
+    },
+    {
+      "settings": {
+        "algorithm": "false-floyd-steinberg"
+      },
+      "sha256": "c6731a3825b4be141a77c471c9e9921ccdc44e9f116d3d900c857077850e5f7a"
+    },
+    {
+      "settings": {
+        "algorithm": "jarvis-judice-ninke"
+      },
+      "sha256": "77b487f8c0c53493f5c5986c2fcb12f71da938ed352dce650305a49c293ce5ca"
+    },
+    {
+      "settings": {
+        "algorithm": "stucki"
+      },
+      "sha256": "b045105ec34f06042c2535f2497fab87b63fab199eff377b269aa1ba42a101d9"
+    },
+    {
+      "settings": {
+        "algorithm": "burkes"
+      },
+      "sha256": "99b8126d4944a785a54420184b53e24261884d18740d53734ae2cce379b2dc54"
+    },
+    {
+      "settings": {
+        "algorithm": "sierra"
+      },
+      "sha256": "71ed3baff97a238cbd2190d4ef7cc33c3809d3cd2833c85dacf9608b0298dff7"
+    },
+    {
+      "settings": {
+        "algorithm": "sierra-two-row"
+      },
+      "sha256": "27b2b38cbd9ba147ece550b36b99aff0c67e82a7c0d88ec115421cd9331b3281"
+    },
+    {
+      "settings": {
+        "algorithm": "sierra-lite"
+      },
+      "sha256": "d715262a0a4c27b5ad623193763a343f8329099a2b200c2b7b67a4264aa71f4a"
+    },
+    {
+      "settings": {
+        "algorithm": "atkinson"
+      },
+      "sha256": "54b811ca0feb033128f74a2ef06f6e9093b76278ab035cb6e67a945d6095f8da"
+    },
+    {
+      "settings": {
+        "algorithm": "bayer-2"
+      },
+      "sha256": "82f91466c81a32ac1ee7b2cebed1ff3528f05abfe13f79037875f00bdb96add6"
+    },
+    {
+      "settings": {
+        "algorithm": "bayer-4"
+      },
+      "sha256": "87367525d6181d07be5c9ee454aadac1e2c9f0dd1a0c04848c560cb7a111160d"
+    },
+    {
+      "settings": {
+        "algorithm": "bayer-8"
+      },
+      "sha256": "a476c2b6ea726ee479f8792bd14c49168ea128c361ae25e38f382e6bfeed2436"
+    },
+    {
+      "settings": {
+        "algorithm": "bayer-16"
+      },
+      "sha256": "c49b771eefae7d798bf1062d3e55df2ae32876b42d2f444fe9dc82be342be6bf"
+    },
+    {
+      "settings": {
+        "algorithm": "cluster-4"
+      },
+      "sha256": "a1a243ea78d34f68a378de9f8432886ec3ee07a0329712bc0ffd0b06459afbeb"
+    },
+    {
+      "settings": {
+        "algorithm": "halftone-8"
+      },
+      "sha256": "2689a5e8dfe26fb3b8af649e4eae50a36a472660e46760f9544af5c7d507734f"
+    },
+    {
+      "settings": {
+        "algorithm": "lines-h"
+      },
+      "sha256": "7755f8550da1c2f46b426bae679645c72a76c9d5cadd6ceb3aa3f30a89020e2d"
+    },
+    {
+      "settings": {
+        "algorithm": "lines-v"
+      },
+      "sha256": "803d728da75e2c084ca8549d5e00fb1ddf4d56a20e664e482ecc4ec54b575b23"
+    },
+    {
+      "settings": {
+        "algorithm": "diagonal"
+      },
+      "sha256": "2add4b904cf60620eeb46a59e01a5a85b08c87074f091f53f677e746e5d06619"
+    },
+    {
+      "settings": {
+        "algorithm": "random"
+      },
+      "sha256": "6eae53da86fe4c337f993159be47d591bdc739e3c426c718bde4b285ce6867b8"
+    },
+    {
+      "settings": {
+        "algorithm": "ign"
+      },
+      "sha256": "ed97a289ed4455575ab6734f4a648fedd02676b0e3ec7612174a2e14f6ed3bfe"
+    },
+    {
+      "settings": {
+        "algorithm": "floyd-steinberg",
+        "serpentine": false
+      },
+      "sha256": "6758f8af56dfd963f3906366b967f021602e67700070a0c7f900b6da8f720a29"
+    },
+    {
+      "settings": {
+        "algorithm": "atkinson",
+        "strength": 0.6,
+        "palette": "gray-4"
+      },
+      "sha256": "fa9d13751d02ef05244070a478f8b952835d775ed2f7e39e54b16b8dd0a1a035"
+    },
+    {
+      "settings": {
+        "algorithm": "floyd-steinberg",
+        "colorMode": "rgb",
+        "palette": "ega-16"
+      },
+      "sha256": "e8231457b3a92f4079f69f9c2df848f9b799fbc9bf27edcb21f3d99ca0c9123f"
+    },
+    {
+      "settings": {
+        "algorithm": "stucki",
+        "colorMode": "rgb",
+        "palette": "vapor",
+        "strength": 0.8
+      },
+      "sha256": "9b95f81b30f7b4fd5d398ea6f5bf8c97dfa0ee562b315a6ffa3dab440da80737"
+    },
+    {
+      "settings": {
+        "algorithm": "bayer-8",
+        "colorMode": "rgb",
+        "palette": "rgb-8",
+        "scale": 3
+      },
+      "sha256": "deccc2d5c91e3813cd062d4c4e64f766b547cffa9676cea52ba3d6d6ed2b0a8f"
+    },
+    {
+      "settings": {
+        "algorithm": "halftone-8",
+        "palette": "newsprint",
+        "scale": 2
+      },
+      "sha256": "dc3c15bd3909ba3a71fecbaa18ca78a950ed8e4c72c6a2e5237e48b78b0a0e9c"
+    },
+    {
+      "settings": {
+        "algorithm": "atkinson",
+        "colorMode": "rgb",
+        "adaptive": 8
+      },
+      "sha256": "20486897b0a130bfa2d6815cded7e6a1134537009e3285124388a8a3870a3b0f"
+    },
+    {
+      "settings": {
+        "algorithm": "bayer-4",
+        "colorMode": "rgb",
+        "adaptive": 5,
+        "scale": 2
+      },
+      "sha256": "3b09157b53eb22f16028594ed7e23ab3f261a2994da570bf318140c47eb8dc28"
+    },
+    {
+      "settings": {
+        "algorithm": "jarvis-judice-ninke",
+        "brightness": 20,
+        "contrast": 30,
+        "saturation": -20,
+        "gamma": 1.4,
+        "invert": true
+      },
+      "sha256": "6f9d209874d6756c25fd48674a96c7d4a168a650d6fafc50bfdde71dda56b326"
+    },
+    {
+      "settings": {
+        "algorithm": "random",
+        "seed": 42,
+        "strength": 1.5,
+        "palette": "sunset"
+      },
+      "sha256": "e312b6b7d85dc13e81f2a70cd93a874d33632754b277aabe0bfa7eb66d48c961"
+    },
+    {
+      "settings": {
+        "algorithm": "ign",
+        "colorMode": "rgb",
+        "palette": [
+          "#102030",
+          "#f0e0d0",
+          "#ff0055"
+        ]
+      },
+      "sha256": "0c952974e6d993a1379e3046d440b67d28b8a59f074667b37a083405c4cf3fee"
+    },
+    {
+      "settings": {
+        "algorithm": "sierra",
+        "brightness": -35,
+        "contrast": 60,
+        "gamma": 0.7,
+        "colorMode": "rgb",
+        "palette": "pocket-green",
+        "scale": 5
+      },
+      "sha256": "f17b67d6c4cf754cf2c5bfa6b07375ba88f3f1538d785c11c12e8e1b7641c877"
+    }
+  ]
+}

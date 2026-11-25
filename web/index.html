@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OpenDither</title>
+  <meta name="description" content="Free, open-source image dithering studio. 20+ algorithms, palettes, pixel scaling. Runs entirely in your browser.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' fill='%23111'/%3E%3Cg fill='%2378b4ff'%3E%3Crect x='3' y='3' width='2' height='2'/%3E%3Crect x='7' y='3' width='2' height='2'/%3E%3Crect x='11' y='3' width='2' height='2'/%3E%3Crect x='5' y='7' width='2' height='2'/%3E%3Crect x='9' y='7' width='2' height='2'/%3E%3Crect x='3' y='11' width='2' height='2'/%3E%3Crect x='7' y='11' width='2' height='2'/%3E%3Crect x='11' y='11' width='2' height='2'/%3E%3C/g%3E%3C/svg%3E">
+  <link rel="stylesheet" href="app.css">
+</head>
+<body>
+<div id="app">
+
+  <!-- Menu bar -->
+  <header class="menubar">
+    <div class="logo" title="OpenDither"><span>Od</span></div>
+    <nav class="menus" id="menus">
+      <div class="menu" data-menu="file"><button>File</button>
+        <div class="menu-pop">
+          <button data-cmd="open">Open…<kbd>Ctrl+O</kbd></button>
+          <button data-cmd="sample">Open Sample Image</button>
+          <hr>
+          <button data-cmd="export">Export Image…<kbd>Ctrl+S</kbd></button>
+          <hr>
+          <button data-cmd="import-recipe">Import Recipe…</button>
+          <button data-cmd="export-recipe">Save Recipe…</button>
+        </div>
+      </div>
+      <div class="menu" data-menu="edit"><button>Edit</button>
+        <div class="menu-pop">
+          <button data-cmd="copy">Copy Result<kbd>Ctrl+C</kbd></button>
+          <button data-cmd="paste">Paste Image<kbd>Ctrl+V</kbd></button>
+          <hr>
+          <button data-cmd="reset">Reset All Settings</button>
+        </div>
+      </div>
+      <div class="menu" data-menu="view"><button>View</button>
+        <div class="menu-pop">
+          <button data-cmd="zoom-in">Zoom In<kbd>Ctrl++</kbd></button>
+          <button data-cmd="zoom-out">Zoom Out<kbd>Ctrl+-</kbd></button>
+          <button data-cmd="fit">Fit on Screen<kbd>Ctrl+0</kbd></button>
+          <button data-cmd="actual">100%<kbd>Ctrl+1</kbd></button>
+          <hr>
+          <button data-cmd="compare">Split Compare<kbd>C</kbd></button>
+          <button data-cmd="toggle-original">Show Original<kbd>\</kbd></button>
+        </div>
+      </div>
+      <div class="menu" data-menu="help"><button>Help</button>
+        <div class="menu-pop">
+          <button data-cmd="shortcuts">Keyboard Shortcuts</button>
+          <button data-cmd="about">About OpenDither</button>
+        </div>
+      </div>
+    </nav>
+    <div class="menubar-title" id="docTitle">OpenDither</div>
+  </header>
+
+  <!-- Options bar -->
+  <div class="optionsbar">
+    <div class="tool-indicator" id="toolIndicator"></div>
+    <span class="sep"></span>
+    <button class="btn ghost" data-cmd="fit">Fit Screen</button>
+    <button class="btn ghost" data-cmd="actual">100%</button>
+    <label class="opt-zoom">
+      <input type="number" id="zoomInput" min="1" max="6400" step="1" value="100"><span>%</span>
+    </label>
+    <span class="sep"></span>
+    <label class="check"><input type="checkbox" id="compareToggle"><span class="box"></span>Split compare</label>
+    <div class="spacer"></div>
+    <span class="busy" id="busy" hidden><i></i>Rendering</span>
+    <button class="btn" data-cmd="open">Open</button>
+    <button class="btn primary" data-cmd="export">Export</button>
+  </div>
+
+  <main>
+    <!-- Tools -->
+    <nav class="toolbar" id="toolbar">
+      <button data-tool="hand" title="Hand tool (H)"></button>
+      <button data-tool="zoom" title="Zoom tool (Z) — Alt-click to zoom out"></button>
+      <button data-tool="compare" title="Compare tool (C) — drag to move the split"></button>
+      <hr>
+      <button data-cmd="toggle-original" title="Hold \ to show original" id="origBtn"></button>
+      <div class="swatch-stack" title="First and last palette colors">
+        <span id="fgSwatch"></span><span id="bgSwatch"></span>
+      </div>
+    </nav>
+
+    <!-- Document -->
+    <section class="workspace">
+      <div class="doc-tabs" id="docTabs" hidden>
+        <div class="doc-tab active"><span id="tabLabel">Untitled</span><button class="x" data-cmd="close" title="Close">×</button></div>
+      </div>
+      <div class="viewport" id="viewport">
+        <div class="stage" id="stage">
+          <canvas id="origCanvas"></canvas>
+          <canvas id="outCanvas"></canvas>
+        </div>
+        <div class="split" id="split"><span></span></div>
+        <div class="empty" id="empty">
+          <div class="empty-card">
+            <div class="empty-art" aria-hidden="true"></div>
+            <h1>OpenDither</h1>
+            <p>Drop an image here, paste one, or open a file.</p>
+            <div class="row">
+              <button class="btn primary" data-cmd="open">Open Image…</button>
+              <button class="btn" data-cmd="sample">Try a Sample</button>
+            </div>
+            <small>Everything runs locally in your browser. Nothing is uploaded.</small>
+          </div>
+        </div>
+        <div class="drop-hint" id="dropHint">Drop to open</div>
+      </div>
+    </section>
+
+    <!-- Panels -->
+    <aside class="dock">
+      <div class="panel-group grow">
+        <div class="panel-tabs">
+          <button class="active" data-tab="props">Properties</button>
+          <button data-tab="embed">Embed</button>
+          <button data-tab="recipe">Recipe</button>
+        </div>
+        <div class="panel-body" data-pane="props" id="propsPane"></div>
+        <div class="panel-body" data-pane="embed" hidden>
+          <div class="pad">
+            <p class="hint">Drop the dither effect on any website. Copy both files from <code>js/src/</code> next to your page, then paste:</p>
+            <textarea id="embedCode" readonly spellcheck="false"></textarea>
+            <div class="row end"><button class="btn" id="copyEmbed">Copy Code</button></div>
+            <p class="hint">Or upgrade existing images: add <code>data-dither</code> to any <code>&lt;img&gt;</code> and call <code>OpenDither.auto()</code>.</p>
+          </div>
+        </div>
+        <div class="panel-body" data-pane="recipe" hidden>
+          <div class="pad">
+            <p class="hint">A recipe is the full set of settings as JSON. It works the same in the web app, the Python app, the CLI and the web component.</p>
+            <textarea id="recipeCode" spellcheck="false"></textarea>
+            <div class="row end">
+              <button class="btn" id="applyRecipe">Apply</button>
+              <button class="btn" id="copyRecipe">Copy</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel-group">
+        <div class="panel-tabs"><button class="active">Navigator</button></div>
+        <div class="panel-body navigator">
+          <div class="nav-view" id="navView"><canvas id="navCanvas"></canvas><div class="nav-rect" id="navRect"></div></div>
+          <div class="nav-zoom">
+            <button class="icon-btn" data-cmd="zoom-out" title="Zoom out">−</button>
+            <input type="range" id="navZoom" min="0" max="1000" value="500">
+            <button class="icon-btn" data-cmd="zoom-in" title="Zoom in">+</button>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <!-- Status bar -->
+  <footer class="statusbar">
+    <span id="stZoom">—</span>
+    <span id="stSize">No document</span>
+    <span id="stAlgo"></span>
+    <div class="spacer"></div>
+    <span id="stPalette"></span>
+    <span id="stTime"></span>
+    <span id="stEngine"></span>
+  </footer>
+</div>
+
+<div class="modal" id="modal" hidden>
+  <div class="dialog">
+    <div class="dialog-title"><span id="modalTitle"></span><button class="x" data-close>×</button></div>
+    <div class="dialog-body" id="modalBody"></div>
+    <div class="dialog-foot" id="modalFoot"></div>
+  </div>
+</div>
+<div class="toast" id="toast" hidden></div>
+
+<input type="file" id="fileInput" accept="image/*" hidden>
+<input type="file" id="recipeInput" accept=".json,application/json" hidden>
+
+<script src="../js/src/opendither.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
